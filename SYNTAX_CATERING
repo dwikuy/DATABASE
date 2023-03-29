@@ -1,0 +1,64 @@
+CREATE DATABASE catering_antrean;
+
+CREATE TABLE Makanan (
+    Kode_Makanan varchar(10) NOT NULL,
+    Nama_Makanan char(50),
+    Jenis_Makanan varchar(50),
+    Harga int,
+    PRIMARY KEY (Kode_Makanan)
+);
+
+CREATE TABLE Pelanggan (
+    Kode_Pelanggan varchar(10) NOT NULL,
+    Nama varchar(50),
+    Alamat varchar(50),
+    PRIMARY KEY (Kode_Pelanggan)
+);
+
+CREATE TABLE Memesan_Layanan_Catering(
+    Kode_Catering varchar(10),
+    Kode_Pelanggan varchar(10),
+    Tgl_Catering date,
+    Total_Catering int,
+    FOREIGN KEY (Kode_Pelanggan) REFERENCES pelanggan(Kode_Pelanggan),
+    PRIMARY KEY (Kode_Catering)
+);
+
+
+CREATE TABLE Detail_Pemesan_Catering(
+    Kode_Makanan varchar(10),
+    Kode_Catering varchar(10),
+    FOREIGN KEY (Kode_Makanan) REFERENCES Makanan(Kode_makanan),
+    FOREIGN KEY (Kode_catering) REFERENCES Memesan_Layanan_Catering(Kode_catering)
+
+);
+
+ALTER TABLE Detail_Pemesan_Catering
+ADD FOREIGN KEY (Kode_catering) REFERENCES Memesan_Layanan_Catering(Kode_catering);
+
+INSERT INTO Makanan VALUES ('B001', 'Bubur_Ayam', 'Breakfast', '10000');
+INSERT INTO Makanan VALUES ('B002', 'Burger_Ayam', 'Breakfast', '16500');
+INSERT INTO Makanan VALUES ('B003', 'Sate_Ayam', 'Lunch', '25000');
+INSERT INTO Makanan VALUES ('B004', 'Nasi_Goreng', 'Dinner', '14500');
+
+INSERT INTO Pelanggan VALUES ('C1', 'Dika', 'Sukabirus');
+INSERT INTO Pelanggan VALUES ('C2', 'Dhiya', 'Sukapura');
+
+INSERT INTO Memesan_Layanan_Catering VALUES ('K01', 'C1', '2017-05-01', '2');
+INSERT INTO Memesan_Layanan_Catering VALUES ('K02', 'C1', '2017-05-02', '1');
+INSERT INTO Memesan_Layanan_Catering VALUES ('K03', 'C2', '2017-05-05', '1');
+INSERT INTO Memesan_Layanan_Catering VALUES ('K04', 'C2', '2017-05-07', '1');
+
+
+INSERT INTO Detail_Pemesan_Catering VALUES ('B001', 'K01');
+INSERT INTO Detail_Pemesan_Catering VALUES ('B004', 'K01');
+INSERT INTO Detail_Pemesan_Catering VALUES ('B002', 'K02');
+INSERT INTO Detail_Pemesan_Catering VALUES ('B003', 'K03');
+INSERT INTO Detail_Pemesan_Catering VALUES ('B004', 'K04');
+
+
+
+
+
+
+
